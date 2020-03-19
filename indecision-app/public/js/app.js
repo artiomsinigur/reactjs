@@ -52,10 +52,9 @@ var multiplier = {
     multiply: function multiply() {
         var _this2 = this;
 
-        var result = this.numbers.map(function (item) {
-            return item * _this2.multiplyBy;
+        return this.numbers.map(function (number) {
+            return number * _this2.multiplyBy;
         });
-        return result;
     }
 };
 var data = multiplier.multiply();
