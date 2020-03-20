@@ -40,17 +40,31 @@ const template = (
 
 // TemplateTwo - Events and Attributes
 let count = 0;
-let i = 0;
 const addOne = () => {
-    i++;
-    console.log(i);
+    count++;
+    renderCounter();
 }
-const templateTwo = (
-    <div>
-        <h2>Count {count}</h2>
-        <button onClick={addOne}>+1</button>
-    </div>
-);
+const minusOne = () => {
+    count--;
+    renderCounter();
+}
+const reset = () => {
+    count = 0;
+    renderCounter();
+}
 
-  const appRoute = document.getElementById('app');
-  ReactDOM.render(templateTwo, appRoute);
+const appRoute = document.getElementById('app');
+const renderCounter = () => {
+    const templateTwo = (
+        <div>
+            <h2>Count {count}</h2>
+            <button onClick={addOne}>+1</button>
+            <button onClick={minusOne}>-1</button>
+            <button onClick={reset}>Reset</button>
+        </div>
+    );
+    
+    ReactDOM.render(templateTwo, appRoute);
+  }
+
+  renderCounter();

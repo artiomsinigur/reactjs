@@ -76,26 +76,48 @@ var template = React.createElement(
 
 // TemplateTwo - Events and Attributes
 var count = 0;
-var i = 0;
 var addOne = function addOne() {
-    i++;
-    console.log(i);
+    count++;
+    renderCounter();
 };
-var templateTwo = React.createElement(
-    'div',
-    null,
-    React.createElement(
-        'h2',
-        null,
-        'Count ',
-        count
-    ),
-    React.createElement(
-        'button',
-        { onClick: addOne },
-        '+1'
-    )
-);
+var minusOne = function minusOne() {
+    count--;
+    renderCounter();
+};
+var reset = function reset() {
+    count = 0;
+    renderCounter();
+};
 
 var appRoute = document.getElementById('app');
-ReactDOM.render(templateTwo, appRoute);
+var renderCounter = function renderCounter() {
+    var templateTwo = React.createElement(
+        'div',
+        null,
+        React.createElement(
+            'h2',
+            null,
+            'Count ',
+            count
+        ),
+        React.createElement(
+            'button',
+            { onClick: addOne },
+            '+1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: minusOne },
+            '-1'
+        ),
+        React.createElement(
+            'button',
+            { onClick: reset },
+            'Reset'
+        )
+    );
+
+    ReactDOM.render(templateTwo, appRoute);
+};
+
+renderCounter();
