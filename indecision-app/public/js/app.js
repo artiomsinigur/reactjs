@@ -3,15 +3,11 @@
 // JSX - JavaScript XML
 
 // JSX expressions 
-var userName = 'Artiom';
-var userAge = 33;
-var userLocation = 'Montréal';
 var user = {
     name: 'Artiom',
     age: 33,
     location: '',
-    options: [],
-    languages: ['Anglais', 'Francais', 'Roumain', 'Russe'],
+    options: [20, 30, 40],
     subtitle: 'Sub title for everyone'
 };
 
@@ -25,14 +21,9 @@ var displayItems = function displayItems(items) {
     if (items) {
         return items.map(function (item, i) {
             return React.createElement(
-                'p',
-                null,
-                'Item ',
-                React.createElement(
-                    'strong',
-                    null,
-                    item
-                )
+                'li',
+                { key: i },
+                item
             );
         });
     }
@@ -76,11 +67,6 @@ var renderForm = function renderForm() {
             React.createElement(
                 'li',
                 null,
-                user.age
-            ),
-            React.createElement(
-                'li',
-                null,
                 getLocation(user.location)
             ),
             user.age && user.age >= 18 && React.createElement(
@@ -89,13 +75,6 @@ var renderForm = function renderForm() {
                 'Age: ',
                 user.age
             )
-        ),
-        displayItems(user.languages),
-        user.options.length,
-        React.createElement(
-            'button',
-            { onClick: removeAll },
-            'Remove options'
         ),
         React.createElement(
             'form',
@@ -107,6 +86,16 @@ var renderForm = function renderForm() {
                 null,
                 'Add option'
             )
+        ),
+        React.createElement(
+            'button',
+            { onClick: removeAll },
+            'Remove options'
+        ),
+        React.createElement(
+            'ol',
+            null,
+            displayItems(user.options)
         )
     );
 
