@@ -8,6 +8,7 @@ const user = {
     name: 'Artiom',
     age: 33,
     location: '',
+    options: [],
     languages: ['Anglais', 'Francais', 'Roumain', 'Russe'],
     subtitle: 'Sub title for everyone'
 };
@@ -16,55 +17,52 @@ const user = {
 const getLocation = (location) => location ? user.location : 'Unknown';
 
 // If value is undefined, will not be rendered in DOM. So undefined, null and boolean are ignored by JSX
-const getLanguages = (languages) => {
-    if (languages) {
-        return languages.map((item, i) => <p>Learned <strong>{item}</strong></p>)
+const displayItems = (items) => {
+    if (items) {
+        return items.map((item, i) => <p>Item <strong>{item}</strong></p>)
     }
 };
 
-const template = (
-    <div>
-        <h1>Hello {user.name}</h1>
-        {user.subtitle && <p>{user.subtitle}</p>}
+const onFormSubmit = (e) => {
+    e.preventDefault();
+    const option = e.target.elements.option.value;
+    // const name = e.target.elements.name.value;
 
-        <ul>
-            <li>{user.age}</li>
-            <li>{getLocation(user.location)}</li>
-            {(user.age && user.age >= 18) && <li>Age: {user.age}</li>}
-        </ul>
+    user.options.push(option);
+    e.target.elements.option.value = '';
 
-        {getLanguages(user.languages)}
-    </div>
-);
-
-
-// TemplateTwo - Events and Attributes
-let count = 0;
-const addOne = () => {
-    count++;
-    renderCounter();
+    renderForm();
 }
-const minusOne = () => {
-    count--;
-    renderCounter();
-}
-const reset = () => {
-    count = 0;
-    renderCounter();
+
+const removeAll = () => {
+    user.options = [];
+    renderForm();
 }
 
 const appRoute = document.getElementById('app');
-const renderCounter = () => {
-    const templateTwo = (
+const renderForm = () => {
+    const template = (
         <div>
-            <h2>Count {count}</h2>
-            <button onClick={addOne}>+1</button>
-            <button onClick={minusOne}>-1</button>
-            <button onClick={reset}>Reset</button>
+            <h1>Hello {user.name}</h1>
+            {user.subtitle && <p>{user.subtitle}</p>}
+
+            <ul>
+                <li>{user.age}</li>
+                <li>{getLocation(user.location)}</li>
+                {(user.age && user.age >= 18) && <li>Age: {user.age}</li>}
+            </ul>
+            {displayItems(user.languages)}
+            {user.options.length}
+
+            <button onClick={removeAll}>Remove options</button>
+            <form onSubmit={onFormSubmit}>
+                <input type="text" name="option"/>
+                <input type="text" name="name"/>
+                <button>Add option</button>
+            </form>
         </div>
     );
-    
-    ReactDOM.render(templateTwo, appRoute);
-  }
 
-  renderCounter();
+    ReactDOM.render(template, appRoute)
+};
+renderForm();
