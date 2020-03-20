@@ -1,61 +1,101 @@
 'use strict';
 
-// arguments object - no longer bound with arrow function
+// JSX - JavaScript XML
 
-var add = function add(a, b) {
-    // console.log(arguments);
-    return a + b;
-};
-console.log(add(20, 1));
-
+// JSX expressions 
+var userName = 'Artiom';
+var userAge = 33;
+var userLocation = 'Montréal';
 var user = {
     name: 'Artiom',
-    cities: ['Montreal', 'New York', 'Toronto'],
-    // printPlace: function () { ES5
-    printPlace: function printPlace() {
-        var _this = this;
-
-        // ES6
-        console.log(this.name);
-        console.log(this.cities);
-
-        // this.cities.forEach( function (city) {
-        // console.log(this.name + ' - ' + city);
-        // });
-
-        // Bind the value
-        var that = this;
-        // or with arrow function
-        this.cities.forEach(function (city) {
-            console.log(_this.name + ' - ' + city);
-        });
-
-        // forEach - do something with each element
-        // map - transform each element and return an array
-
-        // this.cities.forEach( (city) => {
-        //     console.log(city);
-        // });
-
-        var cities = this.cities.map(function (city) {
-            return _this.name + ' has lived in ' + city;
-        });
-        return cities;
-    }
+    age: 33,
+    location: '',
+    languages: ['Anglais', 'Francais', 'Roumain', 'Russe'],
+    subtitle: 'Sub title for everyone'
 };
-// const data = user.printPlace();
 
-// Challenge
-var multiplier = {
-    numbers: [30, 20, 40],
-    multiplyBy: 3,
-    multiply: function multiply() {
-        var _this2 = this;
+// Condition logic
+var getLocation = function getLocation(location) {
+    return location ? user.location : 'Unknown';
+};
 
-        return this.numbers.map(function (number) {
-            return number * _this2.multiplyBy;
+// If value is undefined, will not be rendered in DOM. So undefined, null and boolean are ignored by JSX
+var getLanguages = function getLanguages(languages) {
+    if (languages) {
+        return languages.map(function (item, i) {
+            return React.createElement(
+                'p',
+                null,
+                'Learned ',
+                React.createElement(
+                    'strong',
+                    null,
+                    item
+                )
+            );
         });
     }
 };
-var data = multiplier.multiply();
-console.log(data);
+
+var template = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h1',
+        null,
+        'Hello ',
+        user.name
+    ),
+    user.subtitle && React.createElement(
+        'p',
+        null,
+        user.subtitle
+    ),
+    React.createElement(
+        'ul',
+        null,
+        React.createElement(
+            'li',
+            null,
+            user.age
+        ),
+        React.createElement(
+            'li',
+            null,
+            getLocation(user.location)
+        ),
+        user.age && user.age >= 18 && React.createElement(
+            'li',
+            null,
+            'Age: ',
+            user.age
+        )
+    ),
+    getLanguages(user.languages)
+);
+
+// TemplateTwo - Events and Attributes
+var count = 0;
+var i = 0;
+var addOne = function addOne() {
+    i++;
+    console.log(i);
+};
+var templateTwo = React.createElement(
+    'div',
+    null,
+    React.createElement(
+        'h2',
+        null,
+        'Count ',
+        count
+    ),
+    React.createElement(
+        'button',
+        { onClick: addOne },
+        '+1'
+    )
+);
+
+var appRoute = document.getElementById('app');
+ReactDOM.render(templateTwo, appRoute);
