@@ -7,7 +7,7 @@ var user = {
     name: 'Artiom',
     age: 33,
     location: '',
-    options: [20, 30, 40],
+    options: [],
     subtitle: 'Sub title for everyone'
 };
 
@@ -45,6 +45,11 @@ var removeAll = function removeAll() {
     renderForm();
 };
 
+var makeDecision = function makeDecision() {
+    var randomNumber = Math.floor(Math.random() * user.options.length);
+    alert(user.options[randomNumber]);
+};
+
 var appRoute = document.getElementById('app');
 var renderForm = function renderForm() {
     var template = React.createElement(
@@ -80,12 +85,16 @@ var renderForm = function renderForm() {
             'form',
             { onSubmit: onFormSubmit },
             React.createElement('input', { type: 'text', name: 'option' }),
-            React.createElement('input', { type: 'text', name: 'name' }),
             React.createElement(
                 'button',
                 null,
                 'Add option'
             )
+        ),
+        React.createElement(
+            'button',
+            { disabled: user.options.length === 0, onClick: makeDecision },
+            'Make a decision'
         ),
         React.createElement(
             'button',

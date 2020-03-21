@@ -5,7 +5,7 @@ const user = {
     name: 'Artiom',
     age: 33,
     location: '',
-    options: [20, 30, 40],
+    options: [],
     subtitle: 'Sub title for everyone'
 };
 
@@ -35,6 +35,11 @@ const removeAll = () => {
     renderForm();
 }
 
+const makeDecision = () => {
+    const randomNumber = Math.floor(Math.random() * user.options.length);
+    alert(user.options[randomNumber]);
+}
+
 const appRoute = document.getElementById('app');
 const renderForm = () => {
     const template = (
@@ -49,10 +54,11 @@ const renderForm = () => {
 
             <form onSubmit={onFormSubmit}>
                 <input type="text" name="option"/>
-                <input type="text" name="name"/>
+                {/* <input type="text" name="name"/> */}
                 <button>Add option</button>
             </form>
 
+            <button disabled={user.options.length === 0} onClick={makeDecision}>Make a decision</button>
             <button onClick={removeAll}>Remove options</button>
             <ol>
                 {displayItems(user.options)}
