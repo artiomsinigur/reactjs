@@ -2,11 +2,16 @@
 // render must be declared with Component
 class IndecisionApp extends React.Component {
     render() {
+        // In React props are like attributes in HTML
+        const title = 'Indecision App';
+        const subTitle = 'Give your life in the hand of computer.';
+        const options = ['One', 'Two', 'Three'];
+
         return (
             <div>
-                <Header />
+                <Header title={title} subTitle={subTitle} />
                 <Action />
-                <Options />
+                <Options options={options} />
                 <AddOption />
             </div>
         )
@@ -15,10 +20,11 @@ class IndecisionApp extends React.Component {
 
 class Header extends React.Component {
     render() {
+        // console.log(this.props.title);
         return (
             <header>
-                <h1>Indecision App</h1>
-                <h2>Give your life in the hand of computer.</h2>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subTitle}</h2>
             </header>
         )
     }
@@ -35,9 +41,13 @@ class Action extends React.Component {
 class Options extends React.Component {
     render() {
         return (
-            <div>
-                <Option />
-            </div>
+            <main>
+                <ul>
+                    {
+                        this.props.options.map((option, i) => <Option key={i} optionText={option} />)
+                    }
+                </ul>
+            </main>
         )
     }
 }
@@ -45,9 +55,9 @@ class Options extends React.Component {
 class Option extends React.Component {
     render() {
         return (
-            <ul>
-                <li>Option</li>
-            </ul>   
+            <li>
+                {this.props.optionText}
+            </li>   
         )
     }
 }
