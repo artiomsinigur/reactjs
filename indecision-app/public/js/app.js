@@ -84,11 +84,16 @@ var Action = function (_React$Component3) {
     }
 
     _createClass(Action, [{
+        key: 'makeDecision',
+        value: function makeDecision() {
+            alert('Click');
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'button',
-                null,
+                { onClick: this.makeDecision },
                 'Make a decision'
             );
         }
@@ -107,11 +112,21 @@ var Options = function (_React$Component4) {
     }
 
     _createClass(Options, [{
+        key: 'removeAll',
+        value: function removeAll() {
+            // this.props.options = [];
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
                 'main',
                 null,
+                React.createElement(
+                    'button',
+                    { onClick: this.removeAll },
+                    'Remove All'
+                ),
                 React.createElement(
                     'ul',
                     null,
@@ -159,6 +174,16 @@ var AddOption = function (_React$Component6) {
     }
 
     _createClass(AddOption, [{
+        key: 'submitForm',
+        value: function submitForm(e) {
+            e.preventDefault();
+            var option = e.target.elements.option.value.trim();
+
+            if (option) {
+                console.log(option);
+            }
+        }
+    }, {
         key: 'render',
         value: function render() {
             return React.createElement(
@@ -166,7 +191,7 @@ var AddOption = function (_React$Component6) {
                 null,
                 React.createElement(
                     'form',
-                    null,
+                    { onSubmit: this.submitForm },
                     React.createElement('input', { type: 'text', name: 'option' }),
                     React.createElement(
                         'button',
