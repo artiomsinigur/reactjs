@@ -20,7 +20,7 @@ class IndecisionApp extends React.Component {
         this.pickRandomOption = this.pickRandomOption.bind(this)
         this.submitForm = this.submitForm.bind(this)
         this.state = {
-            options: props.options,
+            options: ['One', 'Two', 'Three'],
             randomOption: ''
         }
     }
@@ -64,7 +64,7 @@ class IndecisionApp extends React.Component {
         return (
             <div>
                 <Header 
-                    // title={title} 
+                    title={title} 
                     subTitle={subTitle} 
                     randomOption={this.state.randomOption} />
                 <Action 
@@ -78,51 +78,58 @@ class IndecisionApp extends React.Component {
         )
     }
 }
-IndecisionApp.defaultProps = { options: ['One', 'Two'] }
 
-function Header (props) {
-    return (
-        <header>
-            <h1>{props.title}</h1>
-            <h2>{props.subTitle}</h2>
-            <p>{props.randomOption}</p>
-        </header>
-    )
-}
-Header.defaultProps = { title: 'Default App Indecision' }
-
-function Action (props) {
-    return (
-        <button 
-            onClick={props.pickRandomOption} 
-            disabled={props.hasOptions}
-        >
-            Make a decision
-        </button>
-    )
+class Header extends React.Component {
+    render() {
+        // console.log(this.props.title);
+        return (
+            <header>
+                <h1>{this.props.title}</h1>
+                <h2>{this.props.subTitle}</h2>
+                <p>{this.props.randomOption}</p>
+            </header>
+        )
+    }
 }
 
-function Options (props) {
-    return (
-        <main>
-            {/* This way is expensive because we bind this object every time we render */}
-            {/* <button onClick={this.removeAll.bind(this)}>Remove All</button> */}
-            <button onClick={props.removeOptions}>Remove All</button>
-            <ul>
-                {
-                    props.options.map((option, i) => <Option key={i} optionText={option} />)
-                }
-            </ul>
-        </main>
-    )
+class Action extends React.Component {
+    render() {
+        return (
+            <button 
+                onClick={this.props.pickRandomOption} 
+                disabled={this.props.hasOptions}
+            >
+                Make a decision
+            </button>
+        )
+    }
 }
 
-function Option (props) {
-    return (
-        <li>
-            {props.optionText}
-        </li>   
-    )
+class Options extends React.Component {
+    render() {
+        return (
+            <main>
+                {/* This way is expensive because we bind this object every time we render */}
+                {/* <button onClick={this.removeAll.bind(this)}>Remove All</button> */}
+                <button onClick={this.props.removeOptions}>Remove All</button>
+                <ul>
+                    {
+                        this.props.options.map((option, i) => <Option key={i} optionText={option} />)
+                    }
+                </ul>
+            </main>
+        )
+    }
+}
+
+class Option extends React.Component {
+    render() {
+        return (
+            <li>
+                {this.props.optionText}
+            </li>   
+        )
+    }
 }
 
 class AddOption extends React.Component {
@@ -157,4 +164,4 @@ class AddOption extends React.Component {
     }
 }
 
-ReactDOM.render(<IndecisionApp options={ ['Hello', 'Salut'] } />, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
