@@ -50,9 +50,7 @@ class IndecisionApp extends React.Component {
 
         this.setState((prevState) => {
             // return prevState.options.push(option)
-            return {
-                options: prevState.options.concat(option)
-            }
+            return { options: prevState.options.concat(option) }
         })
     }
 

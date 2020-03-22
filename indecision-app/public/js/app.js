@@ -78,9 +78,7 @@ var IndecisionApp = function (_React$Component) {
 
             this.setState(function (prevState) {
                 // return prevState.options.push(option)
-                return {
-                    options: prevState.options.concat(option)
-                };
+                return { options: prevState.options.concat(option) };
             });
         }
     }, {
