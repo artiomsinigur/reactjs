@@ -43,14 +43,21 @@ class Action extends React.Component {
 }
 
 class Options extends React.Component {
+    constructor(props) {
+        super(props);
+        this.removeAll = this.removeAll.bind(this);
+    }
     removeAll() {
         // this.props.options = [];
+        console.log(this.props.options)
     }
     
     render() {
         return (
             <main>
-                <button onClick={this.removeAll}>Remove All</button>
+                {/* This way is expensive because we bind this object every time we render */}
+                {/* <button onClick={this.removeAll.bind(this)}>Remove All</button> */}
+                <button onClick={this.removeAll.bind(this)}>Remove All</button>
                 <ul>
                     {
                         this.props.options.map((option, i) => <Option key={i} optionText={option} />)
