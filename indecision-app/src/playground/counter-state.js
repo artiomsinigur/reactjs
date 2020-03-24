@@ -12,6 +12,21 @@ class Counter extends React.Component {
         }
     }
 
+    // Fetch data from localStorage
+    componentDidMount() {
+        const count = Number(localStorage.getItem('count'))
+        if (!isNaN(count)) {
+            this.setState(() => ({ count }))
+        }
+    }
+
+    // Add count in localStorage
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.count !== this.state.count) {
+            localStorage.setItem('count', this.state.count)
+        }
+    }
+
     getRandom() {
         const generate = () => Math.floor(Math.random() * 100)
         

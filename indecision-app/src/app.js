@@ -26,6 +26,25 @@ class IndecisionApp extends React.Component {
         }
     }
 
+    componentDidMount() {
+        const JSONoptions = localStorage.getItem('options')
+        const options = JSON.parse(JSONoptions)
+        this.setState(() => ({ options }))
+    }
+    
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.options.length !== this.state.options.length) {
+            const JSONoptions = JSON.stringify(this.state.options)
+            localStorage.setItem('options', JSONoptions)
+
+            console.log('did updated', this.state.options, prevState.options)
+        }
+    }
+    
+    componentWillUnmount() {
+        console.log('will unmount')
+    }
+
     // Remove all options
     removeOptions() {
         this.setState((prevState) => {
@@ -118,6 +137,7 @@ function Options (props) {
             {/* This way is expensive because we bind this object every time we render */}
             {/* <button onClick={this.removeAll.bind(this)}>Remove All</button> */}
             <button onClick={props.removeOptions}>Remove All</button>
+            {props.options.length === 0 && <p>Please add some options to get start!</p>}
             <ul>
                 {
                     props.options.map((option, i) => (
@@ -161,9 +181,12 @@ class AddOption extends React.Component {
 
         // Get error back if returned
         const error = this.props.submitForm(option)
-        e.target.elements.option.value = '';
-
         this.setState(() => ({ error }))
+
+        // Let value in the field if an error occurred
+        if (!error) {
+            e.target.elements.option.value = '';
+        }
     }
 
     render() {
