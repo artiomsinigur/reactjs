@@ -17,6 +17,7 @@ class IndecisionApp extends React.Component {
     constructor(props) {
         super(props)
         this.removeOptions = this.removeOptions.bind(this)
+        this.removeOption = this.removeOption.bind(this)
         this.pickRandomOption = this.pickRandomOption.bind(this)
         this.submitForm = this.submitForm.bind(this)
         this.state = {
@@ -29,6 +30,15 @@ class IndecisionApp extends React.Component {
     removeOptions() {
         this.setState((prevState) => {
             return { options: prevState.options = [] }
+        })
+    }
+
+    // Remove one option
+    removeOption(option) {
+        this.setState((prevState) => {
+            return {
+                options: prevState.options.filter(elm => elm !== option)
+            }
         })
     }
 
@@ -70,7 +80,9 @@ class IndecisionApp extends React.Component {
                     pickRandomOption={this.pickRandomOption} />
                 <Options 
                     options={this.state.options} 
-                    removeOptions={this.removeOptions} />
+                    removeOptions={this.removeOptions} 
+                    removeOption={this.removeOption}
+                />
                 <AddOption submitForm={this.submitForm} />
             </div>
         )
@@ -108,7 +120,13 @@ function Options (props) {
             <button onClick={props.removeOptions}>Remove All</button>
             <ul>
                 {
-                    props.options.map((option, i) => <Option key={i} optionText={option} />)
+                    props.options.map((option, i) => (
+                        <Option 
+                            key={i} 
+                            optionText={option}
+                            removeOption={props.removeOption}
+                        />
+                    ))
                 }
             </ul>
         </main>
@@ -119,6 +137,13 @@ function Option (props) {
     return (
         <li>
             {props.optionText}
+            <button 
+                onClick={(e) => {
+                    props.removeOption(props.optionText)
+                }}
+            >
+                Remove
+            </button>
         </li>   
     )
 }
@@ -142,7 +167,6 @@ class AddOption extends React.Component {
     }
 
     render() {
-        console.log(this.props)
         return (
             <footer>
                 {this.state.error && <p>{this.state.error}</p>}
@@ -155,4 +179,4 @@ class AddOption extends React.Component {
     }
 }
 
-ReactDOM.render(<IndecisionApp options={ ['Hello', 'Salut'] } />, document.getElementById('app'));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));

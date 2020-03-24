@@ -32,6 +32,7 @@ var IndecisionApp = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (IndecisionApp.__proto__ || Object.getPrototypeOf(IndecisionApp)).call(this, props));
 
         _this.removeOptions = _this.removeOptions.bind(_this);
+        _this.removeOption = _this.removeOption.bind(_this);
         _this.pickRandomOption = _this.pickRandomOption.bind(_this);
         _this.submitForm = _this.submitForm.bind(_this);
         _this.state = {
@@ -49,6 +50,20 @@ var IndecisionApp = function (_React$Component) {
         value: function removeOptions() {
             this.setState(function (prevState) {
                 return { options: prevState.options = [] };
+            });
+        }
+
+        // Remove one option
+
+    }, {
+        key: 'removeOption',
+        value: function removeOption(option) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (elm) {
+                        return elm !== option;
+                    })
+                };
             });
         }
 
@@ -100,7 +115,9 @@ var IndecisionApp = function (_React$Component) {
                     pickRandomOption: this.pickRandomOption }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    removeOptions: this.removeOptions }),
+                    removeOptions: this.removeOptions,
+                    removeOption: this.removeOption
+                }),
                 React.createElement(AddOption, { submitForm: this.submitForm })
             );
         }
@@ -158,7 +175,11 @@ function Options(props) {
             'ul',
             null,
             props.options.map(function (option, i) {
-                return React.createElement(Option, { key: i, optionText: option });
+                return React.createElement(Option, {
+                    key: i,
+                    optionText: option,
+                    removeOption: props.removeOption
+                });
             })
         )
     );
@@ -168,7 +189,16 @@ function Option(props) {
     return React.createElement(
         'li',
         null,
-        props.optionText
+        props.optionText,
+        React.createElement(
+            'button',
+            {
+                onClick: function onClick(e) {
+                    props.removeOption(props.optionText);
+                }
+            },
+            'Remove'
+        )
     );
 }
 
@@ -202,7 +232,6 @@ var AddOption = function (_React$Component2) {
     }, {
         key: 'render',
         value: function render() {
-            console.log(this.props);
             return React.createElement(
                 'footer',
                 null,
@@ -228,4 +257,4 @@ var AddOption = function (_React$Component2) {
     return AddOption;
 }(React.Component);
 
-ReactDOM.render(React.createElement(IndecisionApp, { options: ['Hello', 'Salut'] }), document.getElementById('app'));
+ReactDOM.render(React.createElement(IndecisionApp, null), document.getElementById('app'));
