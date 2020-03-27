@@ -3,18 +3,13 @@ import AddOption from './AddOption'
 import Options from './Options'
 import Header from './Header'
 import Action from './Action'
+import OptionModal from './OptionModal'
 
 export default class IndecisionApp extends React.Component {
-    constructor(props) {
-        super(props)
-        this.removeOptions = this.removeOptions.bind(this)
-        this.removeOption = this.removeOption.bind(this)
-        this.pickRandomOption = this.pickRandomOption.bind(this)
-        this.submitForm = this.submitForm.bind(this)
-        this.state = {
-            options: [],
-            randomOption: ''
-        }
+    state = {
+        options: [],
+        randomOption: '',
+        selectedOption: null
     }
 
     componentDidMount() {
@@ -37,14 +32,14 @@ export default class IndecisionApp extends React.Component {
     }
 
     // Remove all options
-    removeOptions() {
+    removeOptions = () => {
         this.setState((prevState) => {
             return { options: prevState.options = [] }
         })
     }
 
     // Remove one option
-    removeOption(option) {
+    removeOption = (option) => {
         this.setState((prevState) => {
             return {
                 options: prevState.options.filter(elm => elm !== option)
@@ -53,15 +48,22 @@ export default class IndecisionApp extends React.Component {
     }
 
     // Pick an random element form options 
-    pickRandomOption() {
+    pickRandomOption = () => {
         const randomNumber = Math.floor(Math.random() * this.state.options.length)
-        this.setState((prevState) => {
-            return { randomOption: prevState.randomOption = this.state.options[randomNumber] }
-        })
+        // this.setState(() => {
+        //     return { randomOption: this.state.options[randomNumber] }
+        // })
+        
+        this.setState(() => ({ selectedOption: this.state.options[randomNumber] }))
+    }
+
+    // Close modal
+    closeModal = () => {
+        this.setState(() => ({ selectedOption: null }))
     }
 
     // Add option
-    submitForm(option) {
+    submitForm = (option) => {
         if (!option) {
             return 'Enter valid value to add item'
         } else if (this.state.options.includes(option)) {
@@ -86,7 +88,7 @@ export default class IndecisionApp extends React.Component {
                     subTitle={subTitle} 
                     randomOption={this.state.randomOption} />
                 <Action 
-                    hasOptions={this.state.options.length === 0} 
+                    hasOptions={this.state.options.length === 0}
                     pickRandomOption={this.pickRandomOption} />
                 <Options 
                     options={this.state.options} 
@@ -94,6 +96,10 @@ export default class IndecisionApp extends React.Component {
                     removeOption={this.removeOption}
                 />
                 <AddOption submitForm={this.submitForm} />
+                <OptionModal 
+                    selectedOption={this.state.selectedOption} 
+                    closeModal={this.closeModal}
+                />
             </div>
         )
     }
