@@ -1,0 +1,19 @@
+.page-header {
+    padding: 2rem 0;
+    margin-bottom: 4.5rem;
+    background-color: $color-darkest;
+    color: $color-white;
+
+    &__title {
+        margin-top: 0;
+        margin-bottom: .5rem;
+        font-size: 3.2rem;   
+    }
+
+    &__subtitle {
+        margin: 0;
+        font-size: 1.6rem;
+        font-weight: 300;
+        color: $color-lighter;
+    }
+}

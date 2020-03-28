@@ -1,0 +1,84 @@
+.options {
+    padding-bottom: 4.5rem;
+
+    // Header
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        padding: .5rem 2rem;
+        background-color: $color-dark;
+    }
+
+    &__title {
+        margin: 0;
+        padding: 1rem 0;
+        font-size: 2rem;
+        color: $color-lighter;
+    }
+
+    // Body
+    &__body {
+        background-color: $color-light;
+        word-break: break-all;
+    }
+
+    &__list {
+        margin: 0;
+        padding: 0;
+
+        font-size: 2rem;
+        color: $color-white;
+        list-style: none;
+        counter-reset: list-option;
+    }
+
+    &__item {
+        display: flex;
+        padding: 2rem;
+        align-items: center;
+
+        &::before {
+            counter-increment: list-option;
+            content: counter(list-option);
+            margin-right: 1.5rem;
+        }
+
+        p {
+            margin: 0;
+            margin-right: 1rem;
+        }
+
+        button {
+            margin-left: auto;
+            flex-shrink: 0;
+        }
+
+        &:not(:last-child) {
+            border-bottom: 1px solid lighten($color-dark, 15%);
+        }
+    }
+
+    // Footer
+    &__footer {
+        padding: 2rem;
+        background-color: $color-light;
+        border-top: 1px solid lighten($color-dark, 15%);
+    }
+
+    &__form-wrap {
+        display: flex;
+    }
+
+    &__input {
+        flex-grow: 1;
+        margin-right: 1rem;
+        padding: 1.3rem 1rem;
+
+        font-size: 1.6rem;
+        color: $color-lighter;
+        
+        background-color: $color-darker;
+        border: none;
+        border-bottom: 3px solid $color-darkest;
+    }
+}

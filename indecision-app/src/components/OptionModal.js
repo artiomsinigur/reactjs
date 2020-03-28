@@ -3,10 +3,13 @@ import ReactModal from 'react-modal'
 
 const OptionModal = (props) => (
     <ReactModal
-        isOpen={!!props.selectedOption}
+        isOpen={props.showModal}
         contentLabel={'Selected Option'}
         ariaHideApp={false}
         onRequestClose={props.closeModal}
+        closeTimeoutMS={200}
+        overlayClassName={'modal__overlay'}
+        className={'modal__content'}
         // shouldCloseOnOverlayClick={false}
         // shouldCloseOnEsc={true}
     >

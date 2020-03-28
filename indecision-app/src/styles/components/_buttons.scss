@@ -1,0 +1,37 @@
+%btn-reset {
+    font-size: 1.6rem;
+    cursor: pointer;
+    border: none;
+    outline: none;
+}
+
+button:disabled {
+    opacity: .5;
+}
+
+button:disabled:hover {
+    background-color: $color-primary;
+}
+
+.btn {
+    @extend %btn-reset;
+    padding: 1rem;
+    color: $color-white;
+    background-color: $color-primary;
+    border-bottom: 3px solid darken($color-primary, 10%);
+    
+    &:hover {
+        background-color: darken($color-primary, 10%);
+    }
+
+    &--link {
+        color: $color-lighter;
+        background: none;
+        border: none;
+    }
+
+    &--link:hover {
+        background: none;
+        outline: 1px solid $color-lighter;
+    }
+}

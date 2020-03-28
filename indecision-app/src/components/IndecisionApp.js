@@ -1,6 +1,6 @@
 import React from 'react'
-import AddOption from './AddOption'
 import Options from './Options'
+import AddOption from './AddOption'
 import Header from './Header'
 import Action from './Action'
 import OptionModal from './OptionModal'
@@ -8,8 +8,8 @@ import OptionModal from './OptionModal'
 export default class IndecisionApp extends React.Component {
     state = {
         options: [],
-        randomOption: '',
-        selectedOption: null
+        selectedOption: null,
+        showModal: false
     }
 
     componentDidMount() {
@@ -50,16 +50,15 @@ export default class IndecisionApp extends React.Component {
     // Pick an random element form options 
     pickRandomOption = () => {
         const randomNumber = Math.floor(Math.random() * this.state.options.length)
-        // this.setState(() => {
-        //     return { randomOption: this.state.options[randomNumber] }
-        // })
-        
-        this.setState(() => ({ selectedOption: this.state.options[randomNumber] }))
+        this.setState(() => ({ 
+            selectedOption: this.state.options[randomNumber],
+            showModal: true 
+        }))
     }
 
     // Close modal
     closeModal = () => {
-        this.setState(() => ({ selectedOption: null }))
+        this.setState(() => ({ showModal: false }))
     }
 
     // Add option
@@ -83,21 +82,29 @@ export default class IndecisionApp extends React.Component {
 
         return (
             <div>
-                <Header 
+                <Header
                     // title={title} 
                     subTitle={subTitle} 
-                    randomOption={this.state.randomOption} />
+                />
                 <Action 
                     hasOptions={this.state.options.length === 0}
-                    pickRandomOption={this.pickRandomOption} />
-                <Options 
-                    options={this.state.options} 
-                    removeOptions={this.removeOptions} 
-                    removeOption={this.removeOption}
+                    pickRandomOption={this.pickRandomOption} 
                 />
-                <AddOption submitForm={this.submitForm} />
+                <main>
+                    <div className='options'>
+                        <div className='container'>
+                            <Options 
+                                options={this.state.options} 
+                                removeOptions={this.removeOptions} 
+                                removeOption={this.removeOption}
+                            />
+                            <AddOption submitForm={this.submitForm} />
+                        </div>
+                    </div>
+                </main>
                 <OptionModal 
                     selectedOption={this.state.selectedOption} 
+                    showModal={this.state.showModal}
                     closeModal={this.closeModal}
                 />
             </div>

@@ -1,0 +1,93 @@
+.ReactModalPortal {
+    .ReactModal {
+        &__Overlay {
+            opacity: 0;
+            transition: opacity 200ms ease-in-out;
+        }
+
+        &__Overlay--after-open {
+            opacity: 1;
+
+            .modal__content {
+                top: 50%;
+                transition: top 400ms ease-in-out;
+            }
+        }
+
+        &__Overlay--before-close {
+            opacity: 0;
+
+            .modal__content {
+                top: 0;
+                transition: top 400ms ease-in-out;
+            }
+        }
+    }
+}
+
+.modal__overlay {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal__content {
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    min-width: 250px;
+    min-height: 100px;
+    overflow: auto;
+    padding: 3rem;
+
+    word-break: break-all;
+    text-align: center;
+    color: $color-white;
+    transform: translate(-50%, -50%);
+    border: 1px solid rgb(204, 204, 204);
+    background: $color-dark;
+    border: none;
+    outline: none;
+
+    h3 {
+        margin: 0;
+        margin-bottom: 2rem;
+    }
+
+    p {
+        margin: 3rem;
+    }
+
+    button {
+        font-size: 1.6rem;
+        cursor: pointer;
+        border: none;
+        outline: none;
+
+        width: 100%;
+        padding: 1rem;
+
+        color: $color-white;
+        background-color: $color-primary;
+        border-bottom: 3px solid darken($color-primary, 10%);
+        
+        &:hover {
+            background-color: darken($color-primary, 10%);
+        }
+    
+        &--link {
+            color: $color-lighter;
+            background: none;
+            border: none;
+        }
+    
+        &--link:hover {
+            background: none;
+            outline: 1px solid $color-lighter;
+        }
+    }
+}

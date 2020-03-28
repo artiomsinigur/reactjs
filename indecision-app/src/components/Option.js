@@ -2,9 +2,10 @@ import React from 'react'
 
 const Option = (props) => {
     return (
-        <li>
-            {props.optionText}
-            <button 
+        <li className='options__item'>
+            <p>{props.optionText}</p>
+            <button
+                className='btn btn--link'
                 onClick={(e) => {
                     props.removeOption(props.optionText)
                 }}
