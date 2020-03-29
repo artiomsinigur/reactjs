@@ -13,13 +13,13 @@ export default function AppRouter () {
             <div>
                 <Header />
                 <Switch>
-                    {/* <Route exact path="/" component={ExpenseDashboardPage} />
-                    <Route path="/create" component={AddExpensePage} />
-                    <Route path="/edit" component={EditExpensePage} />
-                    <Route path="/help" component={HelpPage} />
-                    <Route component={NotFoundPage} /> */}
+                    <Route exact path="/" component={Dashboard} />
+                    <Route path="/create" component={Create} />
+                    <Route path="/edit/:id" component={Edit} />
+                    <Route path="/help" component={Help} />
+                    <Route component={NotFoundPage} />
                     
-                    <Route path="/help">
+                    {/* <Route path="/help">
                         <Help />
                     </Route>
                     <Route path="/edit">
@@ -33,7 +33,7 @@ export default function AppRouter () {
                     </Route>
                     <Route>
                         <NotFoundPage />
-                    </Route>
+                    </Route> */}
                 </Switch>
             </div>
         </BrowserRouter>
