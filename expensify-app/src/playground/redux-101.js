@@ -25,7 +25,19 @@ const setCount = ({ count = 10 } = {}) => ({
 //     count: count ? count : 100
 // })
 
-const store = createStore((state = { count: 0 }, action) => {
+// Reducers
+// 1. Reducers are pure functions
+    // Ex. 1 This is NOT pure function
+    const b = 10
+    const add = (a) => a + b
+
+    // Ex. 2 This is pure function
+    const add = (a, b) => a + b
+
+// 2. Never change state or action
+
+
+const countReducer = (state = { count: 0 }, action) => {
     switch (action.type) {
         case 'INCREMENT':
             // const incrementBy = typeof action.incrementBy === 'number' ? action.incrementBy : 1
@@ -47,7 +59,9 @@ const store = createStore((state = { count: 0 }, action) => {
         default:
             return state
     }
-})
+}
+
+const store = createStore(countReducer)
 
 // Fetch store state
 // console.log(store.getState())
