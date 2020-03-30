@@ -1,7 +1,36 @@
 import { createStore, combineReducers } from 'redux'
+import { v4 as uuidv4 } from 'uuid'
 
+// Actions
+// ===========================
+const addExpense = ({ desc = '', note = '', amount = 0, createAt = 0 } = {}) => ({
+    type: 'ADD_EXPENSE',
+    expense: {
+        id: uuidv4(),
+        desc,
+        note,
+        amount,
+        createAt
+    }
+})
+
+const removeExpenseById = (id) => ({
+    type: 'REMOVE_EXPENSE',
+    id
+})
+
+// Reducers
+// ============================
 const expensesReducer = (state = [], action) => {
     switch (action.type) {
+        case 'ADD_EXPENSE':
+            // return state.concat(action.expense)
+            return [
+                ...state,
+                action.expense
+            ]
+        case 'REMOVE_EXPENSE':
+            return state.filter(item => item.id !== action.id)
         default:
             return state
     }
@@ -21,7 +50,12 @@ const store = createStore(
     })
 )
 
-console.log(store.getState())
+store.subscribe(() => console.log(store.getState()))
+
+const expenseOne = store.dispatch(addExpense({ desc: 'Rent', amount: 200 }))
+store.dispatch(addExpense({ desc: 'T-Short', amount: 3500 }))
+store.dispatch(removeExpenseById(expenseOne.expense.id))
+
 
 const demoState = {
     expenses: [{
