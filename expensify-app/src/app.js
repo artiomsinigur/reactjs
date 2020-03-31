@@ -4,7 +4,7 @@ import { Provider } from 'react-redux'
 import AppRouter from '../routers/AppRouter'
 import configureStore from './store/configureStore'
 import { addExpense } from './actions/expenses'
-import { setTextFilter } from './actions/filters'
+import { setTextFilter, sortByDate, sortByAmount } from './actions/filters'
 import getVisibleExpenses from './selectors/expenses'
 import 'normalize.css/normalize.css'
 // Inject CSS into the DOM
@@ -14,6 +14,7 @@ const store = configureStore()
 store.dispatch(addExpense({ desc: 'Weater bill', amount: 500, createdAt: 2500 }))
 store.dispatch(addExpense({ desc: 'Meal bill', amount: 1600, createdAt: -3600 }))
 store.dispatch(setTextFilter('bill'))
+store.dispatch(sortByAmount())
 
 const state = store.getState()
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)
