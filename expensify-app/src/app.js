@@ -14,7 +14,7 @@ const store = configureStore()
 store.dispatch(addExpense({ desc: 'Weater bill', amount: 500, createdAt: 2500 }))
 store.dispatch(addExpense({ desc: 'Meal bill', amount: 1600, createdAt: -3600 }))
 store.dispatch(setTextFilter('bill'))
-store.dispatch(sortByAmount())
+// store.dispatch(sortByAmount())
 
 const state = store.getState()
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters)

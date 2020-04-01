@@ -25,4 +25,6 @@ const mapStateToProps = (state) => {
 }
 
 // 2. Redux provides a Connect function to connect component(s) to the store.
+    // First: connect() takes the STATE and PROPS 
+    // Second: connect()() takes the COMPONENT
 export default connect(mapStateToProps)(ExpenseList)
