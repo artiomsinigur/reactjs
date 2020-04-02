@@ -13,6 +13,7 @@ import './styles/style.scss'
 const store = configureStore()
 store.dispatch(addExpense({ desc: 'Weater bill', amount: 500, createdAt: 2500 }))
 store.dispatch(addExpense({ desc: 'Meal bill', amount: 1600, createdAt: -3600 }))
+store.dispatch(addExpense({ desc: 'Gas bill', amount: 2600, createdAt: 1900 }))
 store.dispatch(setTextFilter('bill'))
 // store.dispatch(sortByAmount())
 

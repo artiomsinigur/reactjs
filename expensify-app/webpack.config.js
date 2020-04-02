@@ -1,4 +1,5 @@
 // https://webpack.js.org/configuration/mode/
+// https://www.valentinog.com/blog/babel/
 
 const path = require('path')
 // Get absolute path console.log(__dirname)

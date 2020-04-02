@@ -9,22 +9,34 @@ function ExpenseListFilters(props) {
                 props.dispatch(setTextFilter(e.target.value))
             }} />
             <div>
-                <input type='radio' name='sortBy' id='sortByDate' value='date' onChange={(e) => {
-                    props.dispatch(sortByDate())
-                }} />
+                <input 
+                    type='radio' 
+                    name='sortBy' 
+                    id='sortByDate' 
+                    value='date' 
+                    onChange={(e) => {
+                        props.dispatch(sortByDate())
+                    }} 
+                />
                 <label htmlFor='sortByDate'>Sort by date</label>
             </div>
             <div>
-                <input type='radio' name='sortBy' id='sortByAmount' value='amount' onChange={(e) => {
-                    props.dispatch(sortByAmount())
-                }} />
+                <input 
+                    type='radio' 
+                    name='sortBy' 
+                    id='sortByAmount' 
+                    value='amount' 
+                    onChange={(e) => {
+                        props.dispatch(sortByAmount())
+                    }} 
+                />
                 <label htmlFor='sortByAmount'>Sort by amount</label>
             </div>
             <div>
                 <select name="sortBy" onChange={(e) => {
                     if(e.target.value === 'date') {
                         props.dispatch(sortByDate())
-                    } else {
+                    } else if(e.target.value === 'amount') {
                         props.dispatch(sortByAmount())
                     }
                 }}>

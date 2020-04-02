@@ -88,12 +88,12 @@ export default class IndecisionApp extends React.Component {
                 />
                 <Action 
                     hasOptions={this.state.options.length === 0}
-                    pickRandomOption={this.pickRandomOption} 
+                    pickRandomOption={this.pickRandomOption}
                 />
                 <main>
                     <div className='options'>
                         <div className='container'>
-                            <Options 
+                            <Options
                                 options={this.state.options} 
                                 removeOptions={this.removeOptions} 
                                 removeOption={this.removeOption}
