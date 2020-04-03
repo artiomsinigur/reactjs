@@ -12,6 +12,7 @@ export default class ExpenseForm extends React.Component {
         amount: '',
         createdAt: moment(),
         focused: false,
+        error: ''
     }
 
     onDescChange = (e) => {
@@ -26,25 +27,49 @@ export default class ExpenseForm extends React.Component {
 
     onAmountChange = (e) => {
         const amount = e.target.value
-        // console.log(amount.match(/^\d*(,\d{0,3})*(\.\d{0,2})?$/))
         // new Intl.NumberFormat().format(amount)
-        if (amount.match(/^\d*(\.\d{0,2})?$/)) {
+        if (!amount || amount.match(/^\d{1,}(\.\d{0,2})?$/)) {
             this.setState(() => ({ amount }))
         }
     }
 
     onDateChange = (createdAt) => {
-        this.setState(() => ({ createdAt }))
+        if (createdAt) {
+            this.setState(() => ({ createdAt }))
+        }
     }
 
     onFocusChange = ({ focused }) => {
         this.setState(() => ({ focused }))
     }
 
+    onSubmitForm = (e) =>{
+        e.preventDefault()
+        if (!this.state.desc || !this.state.amount) {
+            this.setState(() => ({ error: 'Please provide description and amount' }))
+        } else {
+            this.setState(() => ({ error: '' }))
+
+            // Send data to create a new expense
+            // parseFloat(12345.33, 10) * 100
+            // 1234533
+            // parseFloat(12345, 10) * 100
+            // 1234500
+            this.props.onSubmit({
+                desc: this.state.desc,
+                amount: parseFloat(this.state.amount, 10) * 100,
+                createdAt: this.state.createdAt.valueOf(),
+                note: this.state.note
+            })
+            console.log('submited')
+        }
+    }
+
     render() {
         return (
             <div>
-                <form>
+                {this.state.error && <p>{this.state.error}</p>}
+                <form onSubmit={this.onSubmitForm}>
                     <div>
                         <input 
                             type="text" 
