@@ -7,12 +7,11 @@ const Create = (props) => (
     <div>
         <h1>Add Expense</h1>
         <ExpenseForm
-            onSubmitHandle={(expense) => {
-                console.log(props)
-                
+            onSubmitForm={(expense) => {
                 props.dispatch(addExpense(expense))
                 props.history.push('/')
             }}
+            isForm='create'
         />
     </div>
 )
