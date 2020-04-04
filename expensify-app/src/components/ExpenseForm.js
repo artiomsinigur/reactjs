@@ -8,7 +8,6 @@ import 'react-dates/initialize' // To fixed a bug
 export default class ExpenseForm extends React.Component {
     constructor(props) {
         super(props)
-
         this.state = {
             desc: props.expense ? props.expense.desc : '',
             note: props.expense ? props.expense.note : '',
@@ -18,14 +17,6 @@ export default class ExpenseForm extends React.Component {
             error: ''
         }
     }
-    // state = {
-    //     desc: this.props.expense ? this.props.expense.desc : '',
-    //     note: this.props.expense ? this.props.expense.note : '',
-    //     amount: this.props.expense ? (this.props.expense.amount / 100).toString() : '',
-    //     createdAt: this.props.expense ? moment(this.props.expense.createdAt) : moment(),
-    //     focused: false,
-    //     error: ''
-    // }
 
     onDescChange = (e) => {
         const desc = e.target.value
