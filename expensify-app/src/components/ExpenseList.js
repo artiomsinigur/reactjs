@@ -9,9 +9,9 @@ const ExpenseList = (props) => (
         <table>
             <tbody>
                 {
-                    props.expenses.map((expense) => (
-                        <ExpenseListItem key={expense.id} {...expense} />
-                    ))
+                    props.expenses.map((expense) => {
+                        return <ExpenseListItem key={expense.id} {...expense} />
+                    })
                 }
             </tbody>
         </table>

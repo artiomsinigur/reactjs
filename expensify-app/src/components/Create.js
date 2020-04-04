@@ -7,7 +7,7 @@ const Create = (props) => (
     <div>
         <h1>Add Expense</h1>
         <ExpenseForm
-            onSubmit={(expense) => {
+            onSubmitHandle={(expense) => {
                 console.log(props)
                 
                 props.dispatch(addExpense(expense))

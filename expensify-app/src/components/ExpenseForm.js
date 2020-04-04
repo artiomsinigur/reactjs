@@ -6,14 +6,26 @@ import 'react-dates/lib/css/_datepicker.css'
 import 'react-dates/initialize' // To fixed a bug
 
 export default class ExpenseForm extends React.Component {
-    state = {
-        desc: '',
-        note: '',
-        amount: '',
-        createdAt: moment(),
-        focused: false,
-        error: ''
+    constructor(props) {
+        super(props)
+
+        this.state = {
+            desc: props.expense ? props.expense.desc : '',
+            note: props.expense ? props.expense.note : '',
+            amount: props.expense ? (props.expense.amount / 100).toString() : '',
+            createdAt: props.expense ? moment(props.expense.createdAt) : moment(),
+            focused: false,
+            error: ''
+        }
     }
+    // state = {
+    //     desc: this.props.expense ? this.props.expense.desc : '',
+    //     note: this.props.expense ? this.props.expense.note : '',
+    //     amount: this.props.expense ? (this.props.expense.amount / 100).toString() : '',
+    //     createdAt: this.props.expense ? moment(this.props.expense.createdAt) : moment(),
+    //     focused: false,
+    //     error: ''
+    // }
 
     onDescChange = (e) => {
         const desc = e.target.value
@@ -43,7 +55,7 @@ export default class ExpenseForm extends React.Component {
         this.setState(() => ({ focused }))
     }
 
-    onSubmitForm = (e) =>{
+    onSubmit = (e) =>{
         e.preventDefault()
         if (!this.state.desc || !this.state.amount) {
             this.setState(() => ({ error: 'Please provide description and amount' }))
@@ -55,13 +67,12 @@ export default class ExpenseForm extends React.Component {
             // 1234533
             // parseFloat(12345, 10) * 100
             // 1234500
-            this.props.onSubmit({
+            this.props.onSubmitForm({
                 desc: this.state.desc,
                 amount: parseFloat(this.state.amount, 10) * 100,
                 createdAt: this.state.createdAt.valueOf(),
                 note: this.state.note
             })
-            console.log('submited')
         }
     }
 
@@ -69,7 +80,7 @@ export default class ExpenseForm extends React.Component {
         return (
             <div>
                 {this.state.error && <p>{this.state.error}</p>}
-                <form onSubmit={this.onSubmitForm}>
+                <form onSubmit={this.onSubmit}>
                     <div>
                         <input 
                             type="text" 
