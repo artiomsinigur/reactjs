@@ -36,7 +36,8 @@ const setCount = ({ count = 10 } = {}) => ({
 
 // 2. Never change state or action
 
-
+// State contains previous data
+// Action set new data
 const countReducer = (state = { count: 0 }, action) => {
     switch (action.type) {
         case 'INCREMENT':
